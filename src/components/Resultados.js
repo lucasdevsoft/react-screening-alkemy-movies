@@ -22,7 +22,7 @@ function Resultados() {
         })
 
     }, [keyword]);
-console.log(setMoviesResults)
+
 
     return (
         <>
