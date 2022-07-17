@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import axios from "axios";
 import swAlert from '@sweetalert/with-react';
 
@@ -7,13 +7,12 @@ import swAlert from '@sweetalert/with-react';
 function Detalle() {
     let token = sessionStorage.getItem("token");
 
-    let query = new URLSearchParams(window.location.search);
-    let movieID = query.get('movieID');
+    let { id } = useParams();
 
     const [movie, setMovie] = useState(null);
     
     useEffect(() => {
-        const endPoint = `https://api.themoviedb.org/3/movie/${movieID}?api_key=82e823d00c7615bf7612c317a10e3511&language=es-Es`;
+        const endPoint = `https://api.themoviedb.org/3/movie/${id}?api_key=82e823d00c7615bf7612c317a10e3511&language=es-Es`;
         axios.get(endPoint).then(response => {
                 const movieData = response.data;
                 setMovie(movieData);
@@ -21,12 +20,14 @@ function Detalle() {
             .catch(error => {
                 swAlert(<h2>No se pudo cargar la API</h2>);
             })
-    }, [movieID]);
+    }, [id]);
 
     return (
         <>
             { !token && <Navigate to="/" replace /> }
-            {!movie && <p>Cargando...</p> }
+            {!movie && <div class="spinner-border text-warning" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div> }
             { movie && (
                 <>  
                 <section className="container py-5">   
