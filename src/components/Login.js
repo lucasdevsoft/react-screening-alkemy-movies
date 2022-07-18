@@ -59,9 +59,9 @@ function Login() {
         <>
             { token && <Navigate to="/listado" replace /> }
             <div className="container m-6 w-100 ">
-                <div className="card-body m-4 ">
-                <div className="row p-4 d-flex align-item-center">
-                <div className="card p-4 col-4 offset-4">
+                <div className="card-body m-4">
+                <div className="row  login-card p-2 d-flex align-item-center">
+                <div className="card">
                     <h2>Formulario de login</h2>
                     <form onSubmit={submitHandler}>
                         <label className="form-label d-block mt-2">Correo electrónico:</label>
